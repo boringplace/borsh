@@ -1,7 +1,6 @@
-/* borsh.c -- print a greeting message and exit.
+/* borsh.c -- initial boring shell.
 
-   Copyright 1992, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2005,
-   2006, 2007, 2008, 2010, 2011 Free Software Foundation, Inc.
+   Copyright 2017 Saratov Free Software Center, Org.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -49,7 +48,7 @@ int main (int argc, char *argv[])
     /* Set locale via LC_ALL.  */
     setlocale (LC_ALL, "");
 
-    while ((optc = getopt_long (argc, argv, "g:hntv", longopts, NULL)) != -1)
+    while ((optc = getopt_long (argc, argv, "g:htv", longopts, NULL)) != -1)
         switch (optc)
         {
         /* --help and --version exit immediately, per GNU coding standards.  */
@@ -66,22 +65,22 @@ int main (int argc, char *argv[])
             break;
         default:
             break;
-      }
+        }
 
     if (!test)
-      /* TRANSLATORS: Use box drawing characters or other fancy stuff
-         if your encoding (e.g., UTF-8) allows it.  If done so add the
-         following note, please:
+        /* TRANSLATORS: Use box drawing characters or other fancy stuff
+           if your encoding (e.g., UTF-8) allows it.  If done so add the
+           following note, please:
 
-         [Note: For best viewing results use a UTF-8 locale, please.]
-      */
-	printf (_("\
+           [Note: For best viewing results use a UTF-8 locale, please.]
+        */
+        printf (_("\
 +---------------+\n\
 | Boring Place! |\n\
 +---------------+\n\
 "));
 
-  exit (EXIT_SUCCESS);
+    exit (EXIT_SUCCESS);
 }
 
 /* Print help info.  This long message is split into
@@ -91,41 +90,41 @@ int main (int argc, char *argv[])
 static void
 print_help (void)
 {
-  /* TRANSLATORS: --help output 1 (synopsis)
-     no-wrap */
+    /* TRANSLATORS: --help output 1 (synopsis)
+       no-wrap */
         printf (_("\
 Usage: %s [OPTION]...\n"), program_name);
 
-  /* TRANSLATORS: --help output 2 (brief description)
-     no-wrap */
-  fputs (_("\
+    /* TRANSLATORS: --help output 2 (brief description)
+       no-wrap */
+    fputs (_("\
 Shell for activate users via email and prepare enter to hackspace server.\n"), stdout);
 
-  puts ("");
-  /* TRANSLATORS: --help output 3: options 1/2
-     no-wrap */
-  fputs (_("\
+    puts ("");
+    /* TRANSLATORS: --help output 3: options 1/2
+       no-wrap */
+    fputs (_("\
   -h, --help          display this help and exit\n\
   -v, --version       display version information and exit\n"), stdout);
 
-  puts ("");
-  /* TRANSLATORS: --help output 4: options 2/2
-     no-wrap */
-  fputs (_("\
+    puts ("");
+    /* TRANSLATORS: --help output 4: options 2/2
+       no-wrap */
+    fputs (_("\
   -t, --test          test shell mode\n"), stdout);
 
-  printf ("\n");
-  /* TRANSLATORS: --help output 5+ (reports)
-     TRANSLATORS: the placeholder indicates the bug-reporting address
-     for this application.  Please add _another line_ with the
-     address for translation bugs.
-     no-wrap */
-  printf (_("\
+    printf ("\n");
+    /* TRANSLATORS: --help output 5+ (reports)
+       TRANSLATORS: the placeholder indicates the bug-reporting address
+       for this application.  Please add _another line_ with the
+       address for translation bugs.
+       no-wrap */
+    printf (_("\
 Report bugs to: %s\n"), PACKAGE_BUGREPORT);
-  printf (_("%s home page: <http://www.boringplace.org/software/%s/>\n"),
-          PACKAGE_NAME, PACKAGE);
-  fputs (_("General help using SarFSC software: <http://www.boringplace.org/gethelp/>\n"),
-         stdout);
+    printf (_("%s home page: <http://www.boringplace.org/software/%s/>\n"),
+            PACKAGE_NAME, PACKAGE);
+    fputs (_("General help using SarFSC software: <http://www.boringplace.org/gethelp/>\n"),
+           stdout);
 }
 
 /* Print version and copyright information.  */
@@ -133,14 +132,14 @@ Report bugs to: %s\n"), PACKAGE_BUGREPORT);
 static void
 print_version (void)
 {
-  printf ("%s (by SarFSC) %s\n", PACKAGE, VERSION);
-  /* xgettext: no-wrap */
-  puts ("");
+    printf ("%s (by SarFSC) %s\n", PACKAGE, VERSION);
+    /* xgettext: no-wrap */
+    puts ("");
 
-  /* It is important to separate the year from the rest of the message,
-     as done here, to avoid having to retranslate the message when a new
-     year comes around.  */
-  printf (_("\
+    /* It is important to separate the year from the rest of the message,
+       as done here, to avoid having to retranslate the message when a new
+       year comes around.  */
+    printf (_("\
 Copyright (C) %s Saratov Free Software Center, Org.\n\
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
