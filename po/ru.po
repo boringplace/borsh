@@ -1,0 +1,17 @@
+# Локализация SarFSC borsh
+# Copyright (C) 2017 Saratov Free Software Center, Org.
+# Evgeny Sinelnikov <sin@sarfsc.ru>, 2017
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: borsh 1.0\n"
+"Report-Msgid-Bugs-To: bug-borsh@boringplace.org\n"
+"POT-Creation-Date: 2017-11-20 23:11+0400\n"
+"PO-Revision-Date: 2017-11-20 23:11+0400\n"
+"Last-Translator: Evgeny Sinelnikov <sin@sarfsc.ru>\n"
+"Language-Team: Russian <ru@sarfsc.ru>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
