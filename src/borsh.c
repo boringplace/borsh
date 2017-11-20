@@ -133,7 +133,7 @@ Report bugs to: %s\n"), PACKAGE_BUGREPORT);
 static void
 print_version (void)
 {
-  printf ("borsh (SarFSC %s) %s\n", PACKAGE, VERSION);
+  printf ("%s (by SarFSC) %s\n", PACKAGE, VERSION);
   /* xgettext: no-wrap */
   puts ("");
 
