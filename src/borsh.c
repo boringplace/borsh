@@ -49,18 +49,6 @@ int main (int argc, char *argv[])
     /* Set locale via LC_ALL.  */
     setlocale (LC_ALL, "");
 
-#if ENABLE_NLS
-    /* Set the text message domain.  */
-    bindtextdomain (PACKAGE, LOCALEDIR);
-    textdomain (PACKAGE);
-#endif
-
-  /* Even exiting has subtleties.  On exit, if any writes failed, change
-     the exit status.  The /dev/full device on GNU/Linux can be used for
-     testing; for instance, hello >/dev/full should exit unsuccessfully.
-     This is implemented in the Gnulib module "closeout".  */
-  atexit (close_stdout);
-
     while ((optc = getopt_long (argc, argv, "g:hntv", longopts, NULL)) != -1)
         switch (optc)
         {

@@ -29,12 +29,7 @@
 #include <getopt.h>
 #include <unistd.h>
 
-/* Internationalization.  */
-#include "gettext.h"
-#define _(str) gettext (str)
-#define N_(str) gettext_noop (str)
-
-/* Check for errors on write.  */
-#include "closeout.h"
+/* Avoid gettext this time.  */
+#define _(str) (str)
 
 #endif /* BORSH_SYSTEM_H */

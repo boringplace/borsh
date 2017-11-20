@@ -17,9 +17,3 @@
 
 bin_PROGRAMS = borsh
 borsh_SOURCES = borsh.c system.h
-
-borsh_LDADD = @LIBINTL@
-
-localedir = $(datadir)/locale
-
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
