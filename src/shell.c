@@ -27,7 +27,7 @@
 #include <pwd.h>
 #include <syslog.h>
 
-static int run_program (const char *program)
+static int run_program (const char *program, const char *arg)
 {
     pid_t pid = fork();
 
@@ -37,7 +37,7 @@ static int run_program (const char *program)
     }
 
     if (pid == 0) {
-        execlp (program, program, NULL);
+        execlp (program, program, arg, NULL);
         syslog(LOG_ERR, "fail to exec \"%s\": %s", program, strerror(errno));
         return EXIT_FAILURE;
 
@@ -53,14 +53,14 @@ static int run_program (const char *program)
     return EXIT_SUCCESS;
 }
 
-int shell ()
+int shell (void)
 {
-    return run_program ("dash");
+    return run_program ("dash", NULL);
 }
 
-int register_shell ()
+int register_shell (const char* email)
 {
-    return run_program ("boring-register");
+    return run_program ("boring-register", email);
 }
 
 int main_shell (int argc, char *argv[])
