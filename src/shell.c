@@ -27,6 +27,13 @@
 #include <pwd.h>
 #include <syslog.h>
 
+static void __attribute__((noreturn)) exec_program (const char *program, const char *arg)
+{
+    execlp (program, program, arg, NULL);
+    syslog(LOG_ERR, "fail to exec \"%s\": %s", program, strerror(errno));
+    exit(EXIT_FAILURE);
+}
+
 static int run_program (const char *program, const char *arg)
 {
     pid_t pid = fork();
@@ -37,9 +44,7 @@ static int run_program (const char *program, const char *arg)
     }
 
     if (pid == 0) {
-        execlp (program, program, arg, NULL);
-        syslog(LOG_ERR, "fail to exec \"%s\": %s", program, strerror(errno));
-        return EXIT_FAILURE;
+        exec_program (program, arg);
 
     } else {
         int status;
