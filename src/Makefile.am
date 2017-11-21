@@ -16,4 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bin_PROGRAMS = borsh
-borsh_SOURCES = borsh.c system.h
+borsh_SOURCES = borsh.c shell.c system.h
+borsh_CFLAGS = -DUSER_PREFIX=\"@USER_PREFIX@\" -DREGISTER_USERNAME=\"@REGISTER_USERNAME@\" -DPEOPLE_DIR=\"@PEOPLE_DIR@\" -DCMD_DIR=\"@CMD_DIR@\"

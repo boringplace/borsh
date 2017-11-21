@@ -32,4 +32,9 @@
 /* Avoid gettext this time.  */
 #define _(str) (str)
 
+/* Internal shell functions */
+int main_shell (int argc, char *argv[]);
+int run_shell ();
+int register_shell ();
+
 #endif /* BORSH_SYSTEM_H */

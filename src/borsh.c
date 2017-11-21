@@ -80,7 +80,7 @@ int main (int argc, char *argv[])
 +---------------+\n\
 "));
 
-    exit (EXIT_SUCCESS);
+    exit (main_shell (argc, argv));
 }
 
 /* Print help info.  This long message is split into

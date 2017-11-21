@@ -36,6 +36,38 @@ else
   HELP2MAN=:
 fi
 
+AC_SUBST(USER_PREFIX)
+USER_PREFIX=bp_
+AC_ARG_WITH(userprefix, [  --with-userprefix=STRING      Prefix of boring username], [
+if test "$withval" != yes
+then USER_PREFIX=$withval
+else AC_MSG_ERROR([proper usage is --with-userprefix=STRING])
+fi])
+
+AC_SUBST(PEOPLE_DIR)
+PEOPLE_DIR=/home/boring
+AC_ARG_WITH(peopledir, [  --with-peopledir=STRING      Boring people home directory], [
+if test "$withval" != yes
+then PEOPLE_DIR=$withval
+else AC_MSG_ERROR([proper usage is --with-peopledir=STRING])
+fi])
+
+AC_SUBST(REGISTER_USERNAME)
+REGISTER_USERNAME=borsh
+AC_ARG_WITH(userprefix, [  --with-registerusername=STRING      System register username], [
+if test "$withval" != yes
+then REGISTER_USERNAME=$withval
+else AC_MSG_ERROR([proper usage is --with-registerusername=STRING])
+fi])
+
+AC_SUBST(CMD_DIR)
+CMD_DIR=/var/lib/$REGISTER_USERNAME/bin
+AC_ARG_WITH(cmddir, [  --with-cmddir=STRING      Register commands directory], [
+if test "$withval" != yes
+then CMD_DIR=$withval
+else AC_MSG_ERROR([proper usage is --with-cmddir=STRING])
+fi])
+
 AC_CONFIG_FILES([Makefile
            man/Makefile
            src/Makefile])
