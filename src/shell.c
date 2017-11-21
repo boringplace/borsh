@@ -23,17 +23,44 @@
 #include <error.h>
 #include <ctype.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <pwd.h>
 #include <syslog.h>
 
+static int run_program (const char *program)
+{
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        syslog(LOG_ERR, "fail to fork: %s", strerror(errno));
+        return EXIT_FAILURE;
+    }
+
+    if (pid == 0) {
+        execlp (program, program, NULL);
+        syslog(LOG_ERR, "fail to exec \"%s\": %s", program, strerror(errno));
+        return EXIT_FAILURE;
+
+    } else {
+        int status;
+        int ret = waitpid (pid, &status, 0);
+        if (ret < 0) {
+            syslog(LOG_WARNING, "fail to wait: %s", strerror(errno));
+            return EXIT_FAILURE;
+        } else
+            syslog(LOG_NOTICE, "done for wait: %s", strerror(errno));
+    }
+    return EXIT_SUCCESS;
+}
+
 int shell ()
 {
-    return 0;
+    return run_program ("dash");
 }
 
 int register_shell ()
 {
-    return 0;
+    return run_program ("boring-register");
 }
 
 int main_shell (int argc, char *argv[])

@@ -70,5 +70,6 @@ fi])
 
 AC_CONFIG_FILES([Makefile
            man/Makefile
+           src/borsh.sudoers
            src/Makefile])
 AC_OUTPUT
