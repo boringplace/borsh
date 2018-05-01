@@ -37,7 +37,7 @@ else
 fi
 
 AC_SUBST(USER_PREFIX)
-USER_PREFIX=bp_
+USER_PREFIX=
 AC_ARG_WITH(userprefix, [  --with-userprefix=STRING      Prefix of boring username], [
 if test "$withval" != yes
 then USER_PREFIX=$withval
@@ -45,7 +45,7 @@ else AC_MSG_ERROR([proper usage is --with-userprefix=STRING])
 fi])
 
 AC_SUBST(PEOPLE_DIR)
-PEOPLE_DIR=/home/boring
+PEOPLE_DIR=/people
 AC_ARG_WITH(peopledir, [  --with-peopledir=STRING      Boring people home directory], [
 if test "$withval" != yes
 then PEOPLE_DIR=$withval
@@ -53,7 +53,7 @@ else AC_MSG_ERROR([proper usage is --with-peopledir=STRING])
 fi])
 
 AC_SUBST(REGISTER_USERNAME)
-REGISTER_USERNAME=borsh
+REGISTER_USERNAME=register
 AC_ARG_WITH(userprefix, [  --with-registerusername=STRING      System register username], [
 if test "$withval" != yes
 then REGISTER_USERNAME=$withval
