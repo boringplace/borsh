@@ -18,6 +18,10 @@
 #ifndef BORSH_SYSTEM_H
 #define BORSH_SYSTEM_H
 
+#if defined(__linux__)
+#define _GNU_SOURCE
+#endif /* __linux__ */
+
 /* Assume ANSI C89 headers are available.  */
 #include <locale.h>
 #include <stdio.h>
@@ -31,6 +35,9 @@
 
 /* Avoid gettext this time.  */
 #define _(str) (str)
+
+/* Portable way to work with environment variables */
+extern char** environ;
 
 /* Internal shell functions */
 int main_shell (int argc, char *argv[]);

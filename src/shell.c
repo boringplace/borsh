@@ -15,17 +15,25 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#define _GNU_SOURCE
-
+#include "config.h"
 #include "system.h"
 
-#include <errno.h>
-#include <error.h>
-#include <ctype.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <pwd.h>
-#include <syslog.h>
+#if defined(__linux__)
+#    include <errno.h>
+#    include <error.h>
+#    include <ctype.h>
+#    include <sys/types.h>
+#    include <sys/wait.h>
+#    include <pwd.h>
+#    include <syslog.h>
+#elif defined(__FreeBSD__)
+#    include <sys/errno.h>
+#    include <sys/ctype.h>
+#    include <sys/types.h>
+#    include <sys/wait.h>
+#    include <pwd.h>
+#    include <sys/syslog.h>
+#endif /* __linux__ */
 
 static void __attribute__((noreturn)) exec_program (const char *program, const char *arg)
 {
@@ -33,6 +41,16 @@ static void __attribute__((noreturn)) exec_program (const char *program, const c
     syslog(LOG_ERR, "fail to exec \"%s\": %s", program, strerror(errno));
     exit(EXIT_FAILURE);
 }
+
+#if defined(__FreeBSD__)
+void error(int exit_code,
+		int error_num,
+		const char * str,
+		...) {
+	perror(str);
+	exit(exit_code);
+}
+#endif /* __FreeBSD__ */
 
 static int run_program (const char *program, const char *arg)
 {
@@ -106,8 +124,7 @@ int main_shell (int argc, char *argv[])
     if (tmpdir)
         tmpdir = strdup(tmpdir);
 
-    if (clearenv() < 0)
-        error(EXIT_FAILURE, errno, "clearenv");
+    environ[0] = NULL;
 
     if ((setenv("USER", pw->pw_name, 1) < 0) ||
         (setenv("LOGNAME", pw->pw_name, 1) < 0) ||

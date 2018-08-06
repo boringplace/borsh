@@ -1,0 +1,20 @@
+/**
+ * \file config.h
+ *
+ * \brief Boring shell configuration header
+ */
+
+#if !defined(BORSH_CONFIG_H)
+#define BORSH_CONFIG_H
+
+#define VERSION "${BORSH_VERSION}"
+#define PACKAGE "${BORSH_PACKAGE}"
+#define PACKAGE_NAME "${BORSH_PACKAGE_NAME}"
+#define PACKAGE_BUGREPORT "${BORSH_PACKAGE_BUGREPORT}"
+#define USER_PREFIX "${USER_PREFIX}"
+#define REGISTER_USERNAME "${REGISTER_USERNAME}"
+#define PEOPLE_DIR "${PEOPLE_DIR}"
+#define CMD_DIR "${CMD_DIR}"
+
+#endif /* BORSH_CONFIG_H */
+
