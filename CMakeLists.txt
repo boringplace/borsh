@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(boringshell C)
+project(boringshell
+	VERSION 0.0.1
+	LANGUAGES C)
+
+include(CheckCCompilerFlag)
 
 include_directories(
 	/usr/include
@@ -43,5 +47,41 @@ target_include_directories(borsh PRIVATE
 
 set_property(TARGET borsh PROPERTY C_STANDARD 99)
 
+function(check_compiler_flags flags)
+	list(APPEND CFLAGS ${flags} ${ARGN})
+	foreach (CFLAG IN LISTS CFLAGS)
+		check_c_compiler_flag(${CFLAG} FLAG_SUPPORTED)
+		if (FLAG_SUPPORTED)
+			message(STATUS "Compiler flag supported: ${CFLAG}")
+		else()
+			message(FATAL_ERROR "Compiler flag not supported: ${CFLAG}")
+		endif()
+	endforeach()
+endfunction()
+
+set(CLANG_COMPILER_FLAGS -g)
+set(GCC_COMPILER_FLAGS -gdwarf-4 -gsplit-dwarf)
+set(PROJECT_COMPILER_FLAGS)
+if (${CMAKE_C_COMPILER_ID} STREQUAL "Clang")
+	set(PROJECT_COMPILER_FLAGS ${CLANG_COMPILER_FLAGS})
+elseif(${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
+	set(PROJECT_COMPILER_FLAGS ${GCC_COMPILER_FLAGS})
+else()
+	message(WARNING "Unsupported compiler detected, no specific compiler flags will be set.")
+endif()
+message(STATUS "The following compiler flags will be set: ${PROJECT_COMPILER_FLAGS}")
+check_compiler_flags(${PROJECT_COMPILER_FLAGS})
+target_compile_options(borsh PRIVATE ${PROJECT_COMPILER_FLAGS})
+
 configure_file(config.h.in config.h)
+configure_file(Doxyfile.in Doxyfile)
+
+# Target to generate developers' documentation for borsh.
+add_custom_target(borsh-dev-doc ALL
+	COMMAND doxygen Doxyfile
+	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+	COMMENT "Generating developers' documentation for borsh")
+
+add_dependencies(borsh-dev-doc
+	borsh)
 
