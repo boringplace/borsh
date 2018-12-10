@@ -1,0 +1,33 @@
+msgid "BoringShell UI configured to CLI."
+msgstr "BoringShell UI сконфигурирован как CLI."
+
+msgid "BoringShell UI configured to TUI."
+msgstr "BoringShell UI сконфигурирован как TUI."
+
+msgid "BoringShell storage configured to SQLite."
+msgstr "Хранилище BoringShell сконфигурировано как SQLite."
+
+msgid "BoringHub registration"
+msgstr "Регистрация на BoringHub"
+
+msgid "BoringHub user registration"
+msgstr "Регистрация пользователя BoringHub"
+
+msgid "Your new login (ASCII, without whitespaces, will be converted to lowercase): "
+msgstr "Ваш логин: (ASCII, без пробелов, будет преобразован в нижний регистр): "
+
+msgid "Choose authentication method: "
+msgstr "Выберите метод авторизации: "
+
+msgid "User added"
+msgstr "Пользователь добавлен"
+
+msgid "User is verified."
+msgstr "Пользователь прошёл проверку."
+
+msgid "User is not verified."
+msgstr "Пользователь не прошёл проверку."
+
+msgid "Quit"
+msgstr "Выход"
+

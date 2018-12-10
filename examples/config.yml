@@ -1,0 +1,17 @@
+%YAML 1.2
+---
+
+borsh:
+  lang: ru
+  ui: cli
+
+checks:
+  - name: E-mail
+    script: /var/borsh/check_email
+  - name: SMS
+    script: /var/borsh/check_sms
+
+storage:
+  type: sqlite
+  path: /var/borsh/borsh.sqlite3
+

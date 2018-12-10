@@ -1,1 +1,0 @@
-@REGISTER_USERNAME@ ALL = NOPASSWD: /usr/bin/passwd @USER_PREFIX@*
