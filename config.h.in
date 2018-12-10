@@ -16,5 +16,10 @@
 #define PEOPLE_DIR "${PEOPLE_DIR}"
 #define CMD_DIR "${CMD_DIR}"
 
+/**
+ * \brief Path to pending registration users' database.
+ */
+#define BORSH_DBPATH "${BORSH_DBPATH}"
+
 #endif /* BORSH_CONFIG_H */
 

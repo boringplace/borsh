@@ -20,38 +20,10 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if !defined(_SHELL_H)
-#define _SHELL_H (1)
+#pragma once
 
-static void __attribute__((noreturn))
-exec_program (const char *program, const char *arg);
-
-#if defined(__FreeBSD__)
-/**
- * \brief Workaround function for error.h
- *
- * \details The initial code used \c error(3) from \c error.h which
- * exists only for Linux. This function is a little workaround to avoid
- * conditional compilation and/or rewrite of the source file.
- */
-void
-error(int exit_code,
-		int error_num,
-		const char * str,
-		...);
-#endif /* __FreeBSD__ */
-
-/**
- * \brief Run program from $PATH
- *
- * \param [in] program Program name
- *
- * \param [in] arg Arguments.
- *
- * \return Program exit code.
- */
-static int
-run_program(const char *program, const char *arg);
+#if !defined(_BORSH_SHELL_H)
+#define _BORSH_SHELL_H (1)
 
 /**
  * \brief Run Bourne Shell.
@@ -67,7 +39,7 @@ shell(void);
  * \return Application exit code.
  */
 int
-register_shell(const char* email);
+register_shell();
 
 /**
  * \brief Main loop.
@@ -81,5 +53,5 @@ register_shell(const char* email);
 int
 main_shell(int argc, char *argv[]);
 
-#endif /* SHELL_H */
+#endif /* !defined(_BORSH_SHELL_H) */
 

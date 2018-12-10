@@ -20,11 +20,15 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BORSH_SYSTEM_H
-#define BORSH_SYSTEM_H
+#pragma once
+
+#ifndef _BORSH_SYSTEM_H
+#define _BORSH_SYSTEM_H (1)
 
 #if defined(__linux__)
-#define _GNU_SOURCE
+#   if !defined(_GNU_SOURCE)
+#      define _GNU_SOURCE (1)
+#   endif /* !defined(_GNU_SOURCE) */
 #endif /* __linux__ */
 
 /* Assume ANSI C89 headers are available.  */
@@ -44,5 +48,5 @@
 /* Portable way to work with environment variables */
 extern char** environ;
 
-#endif /* BORSH_SYSTEM_H */
+#endif /* !defined(_BORSH_SYSTEM_H) */
 

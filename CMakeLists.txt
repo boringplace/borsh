@@ -10,67 +10,86 @@ include_directories(
 	/usr/include
 	/usr/local/include)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+# SQLite3 is needed to store information about users to be registered.
+# Provide your own way to store information and you will be able to make
+# this dependency optional.
+find_package(SQLite3 REQUIRED)
+
 # Block of variables for config.h
 if (NOT BORSH_VERSION)
 	set(BORSH_VERSION "0.0.1")
-endif()
+endif ()
 if (NOT BORSH_PACKAGE)
 	set(BORSH_PACKAGE "borsh")
-endif()
+endif ()
 if (NOT BORSH_PACKAGE_NAME)
 	set(BORSH_PACKAGE_NAME "Boring Shell")
-endif()
+endif ()
 if (NOT BORSH_PACKAGE_BUGREPORT)
 	set(BORSH_PACKAGE_BUGREPORT "sin@altlinux.org")
-endif()
+endif ()
 if (NOT USER_PREFIX)
 	set(USER_PREFIX "")
-endif()
+endif ()
 if (NOT REGISTER_USERNAME)
 	set(REGISTER_USERNAME "register")
-endif()
+endif ()
 if (NOT PEOPLE_DIR)
 	set(PEOPLE_DIR "/people")
-endif()
+endif ()
 if (NOT CMD_DIR)
 	set(CMD_DIR "/var/lib/${REGISTER_USERNAME}/bin")
-endif()
+endif ()
+if (NOT BORSH_DBPATH)
+	set(BORSH_DBPATH "/var/db/borsh/borsh.sqlite3")
+endif ()
 
 add_executable(borsh
 	${boringshell_BINARY_DIR}/config.h
 	src/borsh.c
-	src/shell.c)
+	src/shell.c
+	src/regcache.c)
+set_property(TARGET borsh PROPERTY C_STANDARD 99)
 
 target_include_directories(borsh PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}/include
-	${CMAKE_CURRENT_BINARY_DIR})
+	${CMAKE_CURRENT_BINARY_DIR}
+	${SQLITE3_INCLUDE_DIRS})
 
-set_property(TARGET borsh PROPERTY C_STANDARD 99)
+target_link_libraries(borsh
+	${SQLITE3_LIBRARIES})
 
+# Function to check if the list of compiler flags is supported by the
+# selected compiler
 function(check_compiler_flags flags)
 	list(APPEND CFLAGS ${flags} ${ARGN})
 	foreach (CFLAG IN LISTS CFLAGS)
 		check_c_compiler_flag(${CFLAG} FLAG_SUPPORTED)
 		if (FLAG_SUPPORTED)
 			message(STATUS "Compiler flag supported: ${CFLAG}")
-		else()
+		else ()
 			message(FATAL_ERROR "Compiler flag not supported: ${CFLAG}")
-		endif()
-	endforeach()
+		endif ()
+	endforeach ()
 endfunction()
 
+# Determine and check support of compiler-specific flags.
 set(CLANG_COMPILER_FLAGS -g)
 set(GCC_COMPILER_FLAGS -gdwarf-4 -gsplit-dwarf)
 set(PROJECT_COMPILER_FLAGS)
 if (${CMAKE_C_COMPILER_ID} STREQUAL "Clang")
 	set(PROJECT_COMPILER_FLAGS ${CLANG_COMPILER_FLAGS})
-elseif(${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
+elseif (${CMAKE_C_COMPILER_ID} STREQUAL "GNU")
 	set(PROJECT_COMPILER_FLAGS ${GCC_COMPILER_FLAGS})
-else()
+else ()
 	message(WARNING "Unsupported compiler detected, no specific compiler flags will be set.")
-endif()
+endif ()
 message(STATUS "The following compiler flags will be set: ${PROJECT_COMPILER_FLAGS}")
 check_compiler_flags(${PROJECT_COMPILER_FLAGS})
+
+# Set compiler flags for the specified targets
 target_compile_options(borsh PRIVATE ${PROJECT_COMPILER_FLAGS})
 
 configure_file(config.h.in config.h)
@@ -85,3 +104,8 @@ add_custom_target(borsh-dev-doc ALL
 add_dependencies(borsh-dev-doc
 	borsh)
 
+# CPack configuration
+
+set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "borsh - SSH shell to register users")
+
+include (CPack)
