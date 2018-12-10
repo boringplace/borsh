@@ -1,5 +1,9 @@
-/* system.h: system-dependent declarations; include this first.
-
+/**
+ * \file system.h
+ *
+ * \brief system-dependent declarations; include this first.
+ *
+ * \license
    Copyright 1996, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -13,10 +17,19 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
-#ifndef BORSH_SYSTEM_H
-#define BORSH_SYSTEM_H
+#pragma once
+
+#ifndef _BORSH_SYSTEM_H
+#define _BORSH_SYSTEM_H (1)
+
+#if defined(__linux__)
+#   if !defined(_GNU_SOURCE)
+#      define _GNU_SOURCE (1)
+#   endif /* !defined(_GNU_SOURCE) */
+#endif /* __linux__ */
 
 /* Assume ANSI C89 headers are available.  */
 #include <locale.h>
@@ -32,9 +45,8 @@
 /* Avoid gettext this time.  */
 #define _(str) (str)
 
-/* Internal shell functions */
-int main_shell (int argc, char *argv[]);
-int run_shell ();
-int register_shell ();
+/* Portable way to work with environment variables */
+extern char** environ;
 
-#endif /* BORSH_SYSTEM_H */
+#endif /* !defined(_BORSH_SYSTEM_H) */
+
